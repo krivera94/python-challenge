@@ -66,7 +66,7 @@ Total Votes: {line_count}\n\
 {resultlines}\n\
 ----------------------------\n\
 Winner: {winner}\n\
-Last: {loser}\n\
+----------------------------\n\
 
 print(analysis)
 
