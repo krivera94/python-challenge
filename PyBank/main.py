@@ -11,12 +11,12 @@ with open("budget_data.csv") as csvfile:
     a_change = 0
     m_change = 0
     m_count = 0
-    delta1 = 0
-    delta2 = 0
-    delta_line1 = 0
-    delta_line2 = 0
-    loop1 = 0
-    loop2 = 0
+    d1 = 0
+    d2 = 0
+    dl1 = 0
+    dl2 = 0
+    l1 = 0
+    l2 = 0
     
     for row in csvreader:
         month = row[0]
@@ -26,21 +26,32 @@ with open("budget_data.csv") as csvfile:
         
     m_count = len(months)
     
-for loop1 in range (m_count):
-    total = total + int(losses[loop1])
+for l1 in range (m_count):
+    total = total + int(losses[l1])
                         
-for loop2 in range (m_count-1):
-    a_change = a_change +(float(losses[loop2+1]) - float(losses[loop2]))
+for l2 in range (m_count-1):
+    a_change = a_change +(float(losses[l2+1]) - float(losses[l2]))
     
-    m_change = (float(losses[loop2+1]) - float(losses[loop2]))
-    if m_change > delta1:
-        delta1 = m_change
-        delta_line1 = loop2
+    m_change = (float(losses[l2+1]) - float(losses[l2]))
+    if m_change > d1:
+        d1 = m_change
+        dl1 = l2
     else:
-        delta1=delta1
+        d1=d1
         
-    if m_change < delta2:
-        delta2 = m_change
-        delta_line2 = loop2
+    if m_change < d2:
+        d2 = m_change
+        dl2 = l2
     else:
-        delta2 = delta2
+        d2 = d2
+        
+analysis=f'\
+Financial Analysis\n\
+----------------------------\n\
+Total Months: {m_count}\n\
+Total Amount Ps/Ls: ${total}\n\
+Average Changes: ${round(a_change/(m_count-1),2)}\n\
+Greatest Increase in Profits: {months[dl1+1]} (${int(d1)})\n\
+Greatest Decrease in Profits: {months[dl2+1]} (${int(d2)})\n'
+
+print(analysis)
